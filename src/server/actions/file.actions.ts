@@ -19,7 +19,10 @@ export const uploadFile = async ({
   path: string;
 }) => {
   const res = await fetchMutation(api.file.saveFile, {
-    file,
+    file: {
+      name: file.name,
+      size: file.size,
+    },
     ownerId,
     accountId,
     storageId,

@@ -11,12 +11,17 @@ import { currentUser } from "@clerk/nextjs/server";
 import { fetchQuery } from "convex/nextjs";
 import Thumbnail from "@/components/Thumbnail";
 import ActionDropDown from "@/components/ActionDropDown";
+import { redirect } from "next/navigation";
 
 const Dashboard = async () => {
   const user = await currentUser();
+  if (!user) return redirect("/sign-in");
+
   const convexUser = await fetchQuery(api.users.getUserByClerkId, {
     clerkId: user?.id ?? "",
   });
+
+  if (!convexUser) return redirect("/sign-in");
 
   const [files, totalSpace] = await Promise.all([
     fetchQuery(api.file.getFiles, {
