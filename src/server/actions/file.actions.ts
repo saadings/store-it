@@ -12,7 +12,7 @@ export const uploadFile = async ({
   storageId,
   path,
 }: {
-  file: File;
+  file: { name: string; size: number };
   ownerId: string;
   accountId: string;
   storageId: Id<"_storage">;

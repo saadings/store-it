@@ -57,7 +57,10 @@ const FileUploader = ({ ownerId, accountId, className }: FileUploaderProps) => {
         const urlData = await result.json();
 
         const data = await uploadFile({
-          file,
+          file: {
+            name: file.name,
+            size: file.size,
+          },
           ownerId,
           accountId,
           storageId: urlData.storageId,
